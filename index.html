@@ -42,20 +42,49 @@
         
         .gallery-item {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
         }
         
-        .gallery-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        .gallery-item img {
+            transition: transform 0.5s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
         }
         
         .testimonial-card {
             transition: all 0.3s ease;
+            height: 100%;
         }
         
         .testimonial-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .aspect-ratio-box {
+            position: relative;
+            width: 100%;
+            padding-top: 100%; /* 1:1 Aspect Ratio */
+        }
+        
+        .aspect-ratio-box img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                background-attachment: scroll;
+            }
         }
     </style>
 </head>
@@ -64,7 +93,7 @@
     <nav class="fixed w-full bg-white bg-opacity-90 z-50 shadow-sm">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <div class="text-2xl font-bold tracking-tight">ELEVATE</div>
+                <a href="#" class="text-2xl font-bold tracking-tight">ELEVATE</a>
                 <div class="hidden md:flex space-x-8">
                     <a href="#features" class="hover:text-gray-600 transition">Features</a>
                     <a href="#gallery" class="hover:text-gray-600 transition">Gallery</a>
@@ -78,10 +107,20 @@
                     <button class="p-2 rounded-full hover:bg-gray-100">
                         <i class="fas fa-shopping-bag"></i>
                     </button>
-                    <button class="md:hidden p-2 rounded-full hover:bg-gray-100">
+                    <button class="md:hidden p-2 rounded-full hover:bg-gray-100" id="mobile-menu-button">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white w-full px-6 py-4" id="mobile-menu">
+            <div class="flex flex-col space-y-4">
+                <a href="#features" class="hover:text-gray-600 transition">Features</a>
+                <a href="#gallery" class="hover:text-gray-600 transition">Gallery</a>
+                <a href="#testimonials" class="hover:text-gray-600 transition">Testimonials</a>
+                <a href="#how-it-works" class="hover:text-gray-600 transition">How It Works</a>
             </div>
         </div>
     </nav>
@@ -91,9 +130,9 @@
         <div class="container mx-auto px-6 text-center">
             <h1 class="text-5xl md:text-7xl font-bold mb-6 fade-in">Redefine Your Everyday</h1>
             <p class="text-xl md:text-2xl mb-12 max-w-2xl mx-auto fade-in" style="transition-delay: 0.2s;">Crafted for those who appreciate the finer details in life</p>
-            <button class="bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition transform hover:scale-105 fade-in" style="transition-delay: 0.4s;">
+            <a href="#features" class="inline-block bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition transform hover:scale-105 fade-in" style="transition-delay: 0.4s;">
                 Discover Collection
-            </button>
+            </a>
         </div>
         <div class="absolute bottom-10 left-0 right-0 text-center">
             <a href="#features" class="animate-bounce inline-block">
@@ -144,29 +183,29 @@
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 fade-in">Show It Off</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div class="gallery-item rounded-lg overflow-hidden fade-in">
+                <div class="gallery-item rounded-lg overflow-hidden fade-in h-96 md:h-auto">
                     <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1935&q=80" 
-                         alt="Product in use" class="w-full h-auto object-cover">
+                         alt="Product in use" class="w-full h-full object-cover">
                 </div>
-                <div class="gallery-item rounded-lg overflow-hidden fade-in" style="transition-delay: 0.2s;">
+                <div class="gallery-item rounded-lg overflow-hidden fade-in h-96 md:h-auto" style="transition-delay: 0.2s;">
                     <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80" 
-                         alt="Product detail" class="w-full h-auto object-cover">
+                         alt="Product detail" class="w-full h-full object-cover">
                 </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="gallery-item rounded-lg overflow-hidden fade-in">
+                <div class="gallery-item rounded-lg overflow-hidden fade-in h-64 md:h-80">
                     <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                         alt="Product lifestyle" class="w-full h-auto object-cover">
+                         alt="Product lifestyle" class="w-full h-full object-cover">
                 </div>
-                <div class="gallery-item rounded-lg overflow-hidden fade-in" style="transition-delay: 0.2s;">
+                <div class="gallery-item rounded-lg overflow-hidden fade-in h-64 md:h-80" style="transition-delay: 0.2s;">
                     <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1967&q=80" 
-                         alt="Product close-up" class="w-full h-auto object-cover">
+                         alt="Product close-up" class="w-full h-full object-cover">
                 </div>
-                <div class="gallery-item rounded-lg overflow-hidden fade-in" style="transition-delay: 0.4s;">
+                <div class="gallery-item rounded-lg overflow-hidden fade-in h-64 md:h-80" style="transition-delay: 0.4s;">
                     <div class="relative w-full h-full">
                         <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80" 
-                             alt="Product packaging" class="w-full h-auto object-cover">
+                             alt="Product packaging" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
                             <button class="bg-white bg-opacity-90 rounded-full w-16 h-16 flex items-center justify-center hover:bg-opacity-100 transition">
                                 <i class="fas fa-play text-xl"></i>
@@ -200,7 +239,7 @@
                 <!-- Testimonial 1 -->
                 <div class="testimonial-card bg-gray-50 p-8 rounded-lg fade-in">
                     <div class="flex items-center mb-4">
-                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah J." class="w-12 h-12 rounded-full mr-4">
+                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah J." class="w-12 h-12 rounded-full mr-4 object-cover">
                         <div>
                             <h4 class="font-bold">Sarah J.</h4>
                             <div class="flex text-yellow-400">
@@ -218,7 +257,7 @@
                 <!-- Testimonial 2 -->
                 <div class="testimonial-card bg-gray-50 p-8 rounded-lg fade-in" style="transition-delay: 0.2s;">
                     <div class="flex items-center mb-4">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T." class="w-12 h-12 rounded-full mr-4">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T." class="w-12 h-12 rounded-full mr-4 object-cover">
                         <div>
                             <h4 class="font-bold">Michael T.</h4>
                             <div class="flex text-yellow-400">
@@ -236,7 +275,7 @@
                 <!-- Testimonial 3 -->
                 <div class="testimonial-card bg-gray-50 p-8 rounded-lg fade-in" style="transition-delay: 0.4s;">
                     <div class="flex items-center mb-4">
-                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Emma L." class="w-12 h-12 rounded-full mr-4">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Emma L." class="w-12 h-12 rounded-full mr-4 object-cover">
                         <div>
                             <h4 class="font-bold">Emma L.</h4>
                             <div class="flex text-yellow-400">
@@ -269,17 +308,17 @@
                         <h3 class="text-2xl font-bold mb-4">Material Selection</h3>
                         <p class="text-gray-600">We source only the finest materials from ethical suppliers who meet our rigorous standards for quality and sustainability.</p>
                     </div>
-                    <div class="md:w-1/2">
+                    <div class="md:w-1/2 h-80">
                         <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80" 
-                             alt="Material selection" class="rounded-lg shadow-lg w-full">
+                             alt="Material selection" class="w-full h-full object-cover rounded-lg shadow-lg">
                     </div>
                 </div>
                 
                 <!-- Step 2 -->
                 <div class="flex flex-col md:flex-row items-center mb-16 fade-in" style="transition-delay: 0.2s;">
-                    <div class="md:w-1/2 order-2 md:order-1">
+                    <div class="md:w-1/2 order-2 md:order-1 h-80">
                         <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
-                             alt="Artisan craftsmanship" class="rounded-lg shadow-lg w-full">
+                             alt="Artisan craftsmanship" class="w-full h-full object-cover rounded-lg shadow-lg">
                     </div>
                     <div class="md:w-1/2 mb-8 md:mb-0 md:pl-12 order-1 md:order-2">
                         <div class="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center mb-6">
@@ -299,9 +338,9 @@
                         <h3 class="text-2xl font-bold mb-4">Quality Assurance</h3>
                         <p class="text-gray-600">Every product undergoes rigorous quality checks before leaving our workshop, guaranteeing perfection in every detail.</p>
                     </div>
-                    <div class="md:w-1/2">
+                    <div class="md:w-1/2 h-80">
                         <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
-                             alt="Quality assurance" class="rounded-lg shadow-lg w-full">
+                             alt="Quality assurance" class="w-full h-full object-cover rounded-lg shadow-lg">
                     </div>
                 </div>
             </div>
@@ -314,12 +353,12 @@
             <h2 class="text-3xl md:text-5xl font-bold mb-6 fade-in">Ready to Elevate Your Everyday?</h2>
             <p class="text-xl mb-10 max-w-2xl mx-auto fade-in" style="transition-delay: 0.2s;">Join thousands of satisfied customers who've discovered the difference quality makes.</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in" style="transition-delay: 0.4s;">
-                <button class="bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition transform hover:scale-105">
+                <a href="#" class="inline-block bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition transform hover:scale-105">
                     Shop Now
-                </button>
-                <button class="border-2 border-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-black transition transform hover:scale-105">
+                </a>
+                <a href="#features" class="inline-block border-2 border-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-black transition transform hover:scale-105">
                     Learn More
-                </button>
+                </a>
             </div>
             <p class="mt-8 text-gray-400 fade-in" style="transition-delay: 0.6s;">Limited stock available. Free shipping on all orders this week.</p>
         </div>
@@ -333,10 +372,10 @@
                     <h3 class="text-2xl font-bold mb-4">ELEVATE</h3>
                     <p class="text-gray-600 mb-4">Redefining everyday essentials with uncompromising quality and design.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-600 hover:text-black"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-gray-600 hover:text-black"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-600 hover:text-black"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-gray-600 hover:text-black"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="https://instagram.com" target="_blank" class="text-gray-600 hover:text-black"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com" target="_blank" class="text-gray-600 hover:text-black"><i class="fab fa-twitter"></i></a>
+                        <a href="https://facebook.com" target="_blank" class="text-gray-600 hover:text-black"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://pinterest.com" target="_blank" class="text-gray-600 hover:text-black"><i class="fab fa-pinterest-p"></i></a>
                     </div>
                 </div>
                 
@@ -363,12 +402,12 @@
                 <div>
                     <h4 class="font-bold mb-4">Stay Connected</h4>
                     <p class="text-gray-600 mb-4">Subscribe for exclusive offers and updates.</p>
-                    <div class="flex">
+                    <form class="flex">
                         <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black">
-                        <button class="bg-black text-white px-4 py-2 rounded-r-lg hover:bg-gray-800 transition">
+                        <button type="submit" class="bg-black text-white px-4 py-2 rounded-r-lg hover:bg-gray-800 transition">
                             <i class="fas fa-arrow-right"></i>
                         </button>
-                    </div>
+                    </form>
                 </div>
             </div>
             
@@ -419,6 +458,30 @@
                     }
                 });
             });
+            
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+            
+            // Video play button functionality
+            const videoPlayButton = document.querySelector('.gallery-item .fa-play');
+            if (videoPlayButton) {
+                videoPlayButton.addEventListener('click', function() {
+                    // In a real implementation, this would open a modal with the video
+                    alert('Video player would open here in a real implementation');
+                });
+            }
         });
     </script>
 </body>
